@@ -26,8 +26,8 @@ TCGA_raw_data_ilias <- readRDS("exp_whole_cohort_164s.rds")                 # 16
 
 a <- read.csv("C:... - BIM/GenePrioritization_ALL_ONTOLOGIES.csv")
 sign <- as.vector(a$GeneSymbol)
-# fortonoume metadata elenas
-metadata <- read.csv("C:/Users/sleim/OneDrive/Documents/TNBC_PROJECT/French Dataset Results/French samples_Elenas_Work/samples_heatmap.csv", 
+# upload metadata 
+metadata <- read.csv("C:.../samples_heatmap.csv", 
                      header = T,
                      row.names = 1)
 
@@ -72,7 +72,7 @@ TCGA_data_Activity_EncodedX <- as.data.frame(predict(dummies_TCGA, newdata = TCG
 TCGA_data_Activity_Encoded <- cbind(TCGA_data_with_Activity$Class, TCGA_data_Activity_EncodedX)
 names(TCGA_data_Activity_Encoded)[1] <- "Class" 
 
-# Ftiaxno ligo ta names gt exoun peiraxtei
+# fix names
 names(TCGA_data_Activity_Encoded)[2:239] <- names(TCGA_data_with_Activity)[1:238]
 names(TCGA_data_Activity_Encoded)[240] <- "IRE1_High_activity_(XBP1+/RIDD+)"
 names(TCGA_data_Activity_Encoded)[241] <- "IRE1_Low_activity_(XBP1-/RIDD-)"
@@ -83,8 +83,8 @@ names(TCGA_data_Activity_Encoded)[245] = "XBP1_Low_activity"
 names(TCGA_data_Activity_Encoded)[246] = "RIDD_High_activity"
 names(TCGA_data_Activity_Encoded)[247] = "RIDD_Low_activity"
 
-# dokimi montelou
-# Model 5 (palio model.comb.50 / 50 features)  RF  -- Vgazei to kalytero survival
+# test
+# Model 5 (palio model.comb.50 / 50 features)  RF  
 
 set.seed(139)
 Model_RF_50 <- readRDS("Model.Top50(rf me TrCtrl + TnGr).rds")
@@ -120,7 +120,7 @@ function.SurvPlot(TCGA_raw_data, "Class", "French Dataset Results/Survival Plots
                   "K-M Overall Survival Curves / TCGA-BRCA\n308 TCGA Samples", my_colors)
 
 
-# Model RF 30 top features  (vgazei akrivos to idio me to TOP 50)
+# Model RF 30 top features 
 set.seed(139)
 Model_RF_30 <- readRDS("Model_RF.FullParam_Top30.rds")
 predictions_30 <- predict(Model_RF_30, newdata = TCGA_data_Activity_Encoded)
@@ -138,7 +138,7 @@ function.SurvPlot(TCGA_raw_data, "Class", "French Dataset Results/Survival Plots
 
 #____________________________________________________________________________________________________________________________
 
-# Model 7 (palio model_glmnet.2, tuneLength + trCntr  (BEST SCORE SO FAR))
+# Model 7   (BEST SCORE SO FAR))
 set.seed(139)
 Model_GLM <- readRDS("Model_glm.2(trCtr + TnL.rds")
 predictions_GLM <- predict(Model_GLM, newdata = TCGA_data_Activity_Encoded)
@@ -175,7 +175,7 @@ function.SurvPlot(TCGA_raw_data, "Class", "French Dataset Results/Survival Plots
 #_________________________________________________________________________________________________
 
 
-# Model 4 (palio model.comb.TOP.2 / 150 features)
+# Model 4 (150 features)
 set.seed(139)
 Model_RF_150 <- readRDS("Model.Top150 ( RF me TnGr + trCntr.RDS")
 predictions_RF_150 <- predict(Model_RF_150, newdata = TCGA_data_Activity_Encoded)
@@ -192,7 +192,7 @@ function.SurvPlot(TCGA_raw_data, "Class", "French Dataset Results/Survival Plots
 
 #_________________________________________________________________________________________________________________
 
-# Model 3 (palio model.comb) (kako)
+# Model 3 
 
 set.seed(139)
 Model_RF <- readRDS("Model.Comb(rf me TrCtrl + TnGr).rds")
@@ -209,7 +209,7 @@ TCGA_raw_data@colData@listData$Class <- as.character(predictions_TCGA)
 function.SurvPlot(TCGA_raw_data, "Class", "French Dataset Results/Survival Plots/SurvivalPlot_for_308S_Model_RF.pdf")
 #_________________________________________________________________________________
 
-# Model glm me top 50
+# Model glm  top 50
 
 set.seed(139)
 model_glmnet_50 <- readRDS("Model_glmnet.4(glmnet_me_TrCtrl_&_TnLength_top_50).rds")
@@ -230,7 +230,8 @@ function.SurvPlot(TCGA_raw_data, "Class", "French Dataset Results/Survival Plots
 ################################################################################################################
 
 
-# Dokimi tou kalyterou modelou sto megalytero SE me olous tous karkinous
+
+# Test best model in bigest SE
 
 exp_BRCA <- readRDS("exp_BRCA_FINAL.rds")
 
@@ -271,7 +272,7 @@ BRCA_data_Activity_EncodedX <- as.data.frame(predict(dummies_BRCA, newdata = BRC
 BRCA_data_Activity_Encoded <- cbind(BRCA_data_with_Activity$Class, BRCA_data_Activity_EncodedX)
 names(BRCA_data_Activity_Encoded)[1] <- "Class" 
 
-# Ftiaxno ligo ta names gt exoun peiraxtei
+
 names(BRCA_data_Activity_Encoded)[2:239] <- names(BRCA_data_with_Activity)[1:238]
 names(BRCA_data_Activity_Encoded)[240] <- "IRE1_High_activity_(XBP1+/RIDD+)"
 names(BRCA_data_Activity_Encoded)[241] <- "IRE1_Low_activity_(XBP1-/RIDD-)"
@@ -283,8 +284,8 @@ names(BRCA_data_Activity_Encoded)[246] = "RIDD_High_activity"
 names(BRCA_data_Activity_Encoded)[247] = "RIDD_Low_activity"
 
 
-# dokimi montelou
-# Model 5 (palio model.comb.50 / 50 features)  RF  -- Vgazei to kalytero survival K 8A TO XRISIMOPOIISO
+# TEST
+# Model 5 
 
 set.seed(139)
 # Model_RF_50 <- readRDS("Model.Top50(rf me TrCtrl + TnGr).rds")
@@ -303,8 +304,8 @@ function.SurvPlot(exp_BRCA, "Class", "French Dataset Results/Survival Plots/Surv
 
 
 ##########################################################################################################################
-###### Dokimi RF top50 me arxiko scale, sta 164 deigmata (ΧΑΛΙΑ)
 
+#TEST
 y.exp <- edgeR::DGEList(counts = assays(TCGA_raw_data_ilias)[[1]])
 #TMM normalization
 y.exp <- edgeR::normLibSizes(y.exp, method = "TMM")
@@ -346,7 +347,7 @@ TCGA_data_Activity_EncodedX <- as.data.frame(predict(dummies_TCGA, newdata = TCG
 TCGA_data_Activity_Encoded <- cbind(TCGA_data_with_Activity$Class, TCGA_data_Activity_EncodedX)
 names(TCGA_data_Activity_Encoded)[1] <- "Class" 
 
-# Ftiaxno ligo ta names gt exoun peiraxtei
+#
 names(TCGA_data_Activity_Encoded)[2:239] <- names(TCGA_data_with_Activity)[1:238]
 names(TCGA_data_Activity_Encoded)[240] <- "IRE1_High_activity_(XBP1+/RIDD+)"
 names(TCGA_data_Activity_Encoded)[241] <- "IRE1_Low_activity_(XBP1-/RIDD-)"
@@ -357,8 +358,7 @@ names(TCGA_data_Activity_Encoded)[245] = "XBP1_Low_activity"
 names(TCGA_data_Activity_Encoded)[246] = "RIDD_High_activity"
 names(TCGA_data_Activity_Encoded)[247] = "RIDD_Low_activity"
 
-# dokimi montelou
-# Model 5 (palio model.comb.50 / 50 features)  RF  -- Vgazei to kalytero survival
+# Model 5 
 
 set.seed(139)
 Model_RF_50 <- readRDS("Model.Top50(rf me TrCtrl + TnGr).rds")
