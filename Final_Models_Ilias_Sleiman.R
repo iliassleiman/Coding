@@ -24,7 +24,7 @@ library(SummarizedExperiment)
 TCGA_raw_data <- readRDS("Full_SE_with_308samples_(Vital_Status).rds")      # 308 Blind samples - dead/alive equal
 TCGA_raw_data_ilias <- readRDS("exp_whole_cohort_164s.rds")                 # 164 Classified samples - dead/alive NOT equal
 
-a <- read.csv("C:/Users/sleim/OneDrive/Documents/TNBC_PROJECT/French Dataset Results/Gene Prioritization - BIM/GenePrioritization_ALL_ONTOLOGIES.csv")
+a <- read.csv("C:... - BIM/GenePrioritization_ALL_ONTOLOGIES.csv")
 sign <- as.vector(a$GeneSymbol)
 # fortonoume metadata elenas
 metadata <- read.csv("C:/Users/sleim/OneDrive/Documents/TNBC_PROJECT/French Dataset Results/French samples_Elenas_Work/samples_heatmap.csv", 
